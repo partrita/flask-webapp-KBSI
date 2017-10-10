@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class = "jumbotron">
+  <h2>Results of '{{name}} Da'</h2>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+<!-- table -->
+        <h4> table of '{{name}}' Da</h4>
+        <table class = 'table'>
+        <thead>
+        <tr>
+            <th> compound </th>
+            <td> mass </td>
+            <td> error </td>
+        </tr>
+        </thead>
+        {% for key, value in result.iteritems() %}
+        <tr>
+            <th> {{ key }} </th>
+            <td> {{ value[0] }} </td>
+            <td> {{ value[1] }} </td>
+        </tr>
+        {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}

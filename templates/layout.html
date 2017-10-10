@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Project B</title>
+
+
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <link href="../static/submit.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" ><a href="/">Home</a></li>
+            <li role="presentation"><a href="/about">About</a></li>
+            <li role="presentation"><a href="/tools">Tools</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted"><span class="glyphicon glyphicon-cloud-download"></span> Project B</h3>
+      </div>
+    {% block content %}
+    {% endblock %}
+
+    <footer class="footer">
+      <p>&copy; partrita@gmail.com 2015</p>
+    </footer>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class = "jumbotron">
+  <h2>Results of '{{name}}'</h2>
+  <!-- graph plotting -->
+  <div>
+   {{plot|safe}}
+  </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+<!-- table -->
+        <h4> M/Z table of '{{name}}'</h4>
+        <table class = 'table'>
+        <thead>
+        <tr>
+            <th> M/Z </th>
+            <td> Intensity </td>
+        </tr>
+        </thead>
+        {% for key, value in result.iteritems() %}
+        <tr>
+            <th> {{ key }} </th>
+            <td> {{ value }} </td>
+        </tr>
+        {% endfor %}
+        </table>
+    </div>
+    <div class="col-sm-6">
+        <h4>Monoisotopic Mass</h4>
+        <p> {{name}} = {{ mass }}</p>
+        <h4>Charge</h4>
+        <p> {{ name }} = {{ charge }}</p>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+      <div class="jumbotron">
+        <h1>Isotope Pattern Calculator</h1>
+        <form class="form-signin" method ="post">
+        <label for="inputName" class="sr-only">compound</label>
+        <input type="text" name="expression" id="inputName" class="form-control" placeholder="e.g. C16H18N2O4S" required autofocus>
+
+        <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-search"></span>  Calculate </button>
+
+      </div>
+      <div class="row">
+          <div class="col-sm-6 col-xs-12">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <h4>
+                  Options
+                  </h4>
+              <label for="pts">Resolution</label>
+              <select name="pts">
+                <option value="500">500</option>
+                <option value="1000">1000</option>
+                <option value="1500">1500</option>
+                </select>
+              <label for="sigma">Sigma</label>
+              <select name="sigma">
+                <option value="0.15">0.15</option>
+                <option value="0.07">0.07</option>
+                <option value="0.01">0.01</option>
+                <option value="0.001">0.001</option>
+                <option value="0.3">0.3</option>
+              </select>
+              </p>
+              </form>
+                </div>
+              </div>
+              </br>
+              <h4>Resolution value</h4>
+              <p>Number of points to use for the m/z axis (affects resolution). Default is 500. Higher is slower</p>
+              <h4>Sigma value</h4>
+              <p>Gaussian broadening factor (affects resolution). Default is 0.15. Lower value gives higher resolution.</p>
+          </div>
+          <div class="col-sm-6 col-xs-12">
+              <h4>About</h4>
+              <p> This program can calculate the isotopic distribution of a given chemical species. This program is still under development. If you have any comments or suggestions I would like to hear from you.</p>
+
+              <h4>Example</h4>
+              <p>Key in the chemical formula for which you would like to determine the isotopic distributions. Calculation should take upwards of a few seconds depending on the size of the chemical species. The species is assumed neutral.</p>
+        </div>
+      </div>
+
+{% endblock %}
+

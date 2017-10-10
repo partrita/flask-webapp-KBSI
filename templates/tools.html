@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block content %}
+		<div class="jumbotron">
+			<h1>Tools</h1>
+			<p class="lead">Bioinformatics for Mass spectrometry</p>
+			<br>
+			<p>
+			  <a class="btn btn-lg btn-success" href="/about" role="button">Learn more</a>
+			</p>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-6 col-xs-12">
+				<a href="/isoc">
+					<h4>Isotope Pattern Calculator</h4>
+				</a>
+				<p>Just type in the chemical formula and this program will calculate the intensity of each mass isotope in the species. The analysis can be done in both high and low resolution. The program can also plot either calculated or manually inputted isotopic distributions, and the mass range can be scaled for better view the data. This program can calculate the isotopic distribution of a given chemical species.</p>
+				<a href="/m2f">
+					<h4>Mass to formula <span class="label label-default">New</span></h4>
+				</a>
+				<p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+				<a href="/">
+					<h4>Mass Calculator</h4>
+				</a>
+				<p>Mass Calculator provides a tools for calculation of molecular masses of compounds, generation of ion series and isotopic pattern simulation. Molecular formula can be typed manually or can be sent from various mMass’s tools such as Protein Digest, Peptide Fragmentation etc. Theoretical isotopic profile can be easily overlaid with measured data or stored as regular document.</p>
+			</div>
+
+			<div class="col-sm-6 col-xs-12">
+				<a href="/">
+					<h4>Exact Mass Calculator, Single Isotope Version</h4>
+				</a>
+				<p>Type in molecular formula and this program quickly calculates the exact mass of a single isotope.</p>
+				<a href="/">
+					<h4>Mass Spectrum Generator</h4>
+				</a>
+				<p>Just type in the mass spec peaks and their relative intensities and this program will generate a mass spectrum plot. The plot mass range can then be scaled to better view the relationship of the ions. </p>
+				<a href="/">
+					<h4>Online GC and GC/MS Data File Viewer</h4>
+				</a>
+				<p>reads and display CDF and Agilent .D/data.ms files online.</p>
+			</div>
+		</div>
+{% endblock %}

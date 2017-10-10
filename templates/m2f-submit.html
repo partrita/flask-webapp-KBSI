@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+      <div class="jumbotron">
+        <h1>Mass to formular</h1>
+        <form class="form-signin" method ="post">
+        <label for="inputName" class="sr-only">mass</label>
+        <input type="text" name="expression" id="inputName" class="form-control" placeholder="e.g. 123.1" required autofocus>
+
+        <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit">Calculate</button>
+
+      </div>
+      <div class="row">
+          <div class="col-sm-6">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <h4>Options</h4>
+                <p>
+                <label for="tol">Tolerance(m/z) </label>
+                <select name="tol">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                </select>
+                </p>
+              </div>
+            </div>
+        </form>
+              <h4>Tolerance value</h4>
+              <p>Nmass tolerance value and units for calculated compounds.</p>
+              <h4>Charge value</h4>
+              <p>current charge and ionization specie of an ion.</p>
+          </div>
+
+          <div class="col-sm-6">
+              <h4>About</h4>
+              <p>
+              Generates elemental composition for given m/z value. You can specify limits for each element allowed for the resulting formulae, however, limits for the elements like C, H, N and O are calculated automatically.
+              </p>
+
+              <h4>Example</h4>
+              <p>Key in the chemical formula for which you would like to determine the isotopic distributions. Calculation should take upwards of a few seconds depending on the size of the chemical species.
+        The species is assumed neutral.</p>
+        </div>
+      </div>
+
+{% endblock %}
