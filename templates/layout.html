@@ -1,34 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <title>Project B</title>
-
-
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
     <link href="../static/submit.css" rel="stylesheet">
+</head>
 
-  </head>
-
-  <body>
-    <div class="container">
-      <div class="header">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" ><a href="/">Home</a></li>
-            <li role="presentation"><a href="/about">About</a></li>
-            <li role="presentation"><a href="/tools">Tools</a></li>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Project B</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/tools">Tools</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
             </ul>
-        </nav>
-        <h3 class="text-muted"><span class="glyphicon glyphicon-cloud-download"></span> Project B</h3>
-      </div>
-    {% block content %}
-    {% endblock %}
-
-    <footer class="footer">
-      <p>&copy; partrita@gmail.com 2015</p>
-    </footer>
         </div>
-    </body>
+    </div>
+</nav>
+<body>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+
+        <footer class="footer mt-auto py-3 text-center">
+            <p>&copy; partrita@gmail.com 2015</p>
+        </footer>
+    </div>
+</body>
+
 </html>

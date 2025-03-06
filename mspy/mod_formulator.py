@@ -29,21 +29,37 @@ import calculations
 # MASS TO FORMULA FUNCTIONS
 # -------------------------
 
-def formulator(mz, charge=0, tolerance=1., units='Da', composition={}, agentFormula='H', agentCharge=1, limit=1000):
+
+def formulator(
+    mz,
+    charge=0,
+    tolerance=1.0,
+    units="Da",
+    composition={},
+    agentFormula="H",
+    agentCharge=1,
+    limit=1000,
+):
     """Generate formulae for given mass, tolerance and composition limits.
-        mz (float) - searched m/z value
-        charge (int) - current charge
-        tolerance (float) - mass tolerance
-        units (ppm or Da) - mass tolerance units
-        composition (dict of 'element':[min count, max count]) - composition limits
-        agentFormula (str) - charging agent formula
-        agentCharge (int) - charging agent unit charge
-        limit (int) - maximum formulae allowed to be calculated
+    mz (float) - searched m/z value
+    charge (int) - current charge
+    tolerance (float) - mass tolerance
+    units (ppm or Da) - mass tolerance units
+    composition (dict of 'element':[min count, max count]) - composition limits
+    agentFormula (str) - charging agent formula
+    agentCharge (int) - charging agent unit charge
+    limit (int) - maximum formulae allowed to be calculated
     """
 
     # get neutral mass
     if charge != 0 and agentFormula:
-        mass = mod_basics.mz(mz, 0, currentCharge=charge, agentFormula=agentFormula, agentCharge=agentCharge)
+        mass = mod_basics.mz(
+            mz,
+            0,
+            currentCharge=charge,
+            agentFormula=agentFormula,
+            agentCharge=agentCharge,
+        )
     else:
         mass = mz
 
@@ -52,12 +68,12 @@ def formulator(mz, charge=0, tolerance=1., units='Da', composition={}, agentForm
         return []
 
     # get mass limits
-    if units == 'ppm':
-        loMass = mass - (mass/1e6) * tolerance
-        hiMass = mass + (mass/1e6) * tolerance
+    if units == "ppm":
+        loMass = mass - (mass / 1e6) * tolerance
+        hiMass = mass + (mass / 1e6) * tolerance
     elif charge != 0:
-        loMass = mass - abs(charge)*tolerance
-        hiMass = mass + abs(charge)*tolerance
+        loMass = mass - abs(charge) * tolerance
+        hiMass = mass + abs(charge) * tolerance
     else:
         loMass = mass - tolerance
         hiMass = mass + tolerance
@@ -65,13 +81,13 @@ def formulator(mz, charge=0, tolerance=1., units='Da', composition={}, agentForm
     # sort elements by masses to speed up processing
     buff = []
     if mass < 500:
-        composition = {'C':[0,40], 'H':[0,80], 'N':[0,20], 'O':[0,20]}
+        composition = {"C": [0, 40], "H": [0, 80], "N": [0, 20], "O": [0, 20]}
     elif mass < 1000:
-        composition = {'C':[0,80], 'H':[0,130], 'N':[0,30], 'O':[0,30]}
+        composition = {"C": [0, 80], "H": [0, 130], "N": [0, 30], "O": [0, 30]}
     elif mass < 2000:
-        composition = {'C':[0,160], 'H':[0,250], 'N':[0,40], 'O':[0,70]}
+        composition = {"C": [0, 160], "H": [0, 250], "N": [0, 40], "O": [0, 70]}
     else:
-        composition = {'C':[0,180], 'H':[0,300], 'N':[0,60], 'O':[0,90]}
+        composition = {"C": [0, 180], "H": [0, 300], "N": [0, 60], "O": [0, 90]}
 
     for el in composition:
         elMass = obj_compound.compound(el).mass(0)
@@ -91,18 +107,19 @@ def formulator(mz, charge=0, tolerance=1., units='Da', composition={}, agentForm
 
     # check max composition
     for i in range(len(maxComposition)):
-        maxComposition[i] = min(maxComposition[i], int(hiMass/elementMasses[i]))
+        maxComposition[i] = min(maxComposition[i], int(hiMass / elementMasses[i]))
 
     # generate compositions
     formulae = []
-    comps = _compositions(minComposition, maxComposition, elementMasses, loMass, hiMass, limit)
+    comps = _compositions(
+        minComposition, maxComposition, elementMasses, loMass, hiMass, limit
+    )
     for comp in comps:
-
         CHECK_FORCE_QUIT()
 
-        formula = ''
+        formula = ""
         for i in range(len(comp)):
-            formula += '%s%d' % (elements[i], comp[i])
+            formula += "%s%d" % (elements[i], comp[i])
         formulae.append(formula)
 
     end = {}
@@ -114,23 +131,34 @@ def formulator(mz, charge=0, tolerance=1., units='Da', composition={}, agentForm
         end[name_comp] = mass, error
 
     return end
+
+
 # ----
 
 
 def _compositions(minimum, maximum, masses, loMass, hiMass, limit):
     """Generates composition variants within given atom count limits and mass range.
-        minimum (list or tuple of int) - miminum atom counts
-        maximum (list or tuple of int) - maximum atom counts
-        masses (list or tuple of float) - element masses reverse ordered
-        loMass (float) - low mass limit
-        hiMass (float) - high mass limit
-        limit (int) - max number of items to be counted
+    minimum (list or tuple of int) - miminum atom counts
+    maximum (list or tuple of int) - maximum atom counts
+    masses (list or tuple of float) - element masses reverse ordered
+    loMass (float) - low mass limit
+    hiMass (float) - high mass limit
+    limit (int) - max number of items to be counted
     """
 
     # check data
-    if (len(minimum) != len(maximum) or len(minimum) != len(masses)):
-        raise ValueError, "Sizes of minimum, maximum and masses are not equal!"
+    if len(minimum) != len(maximum) or len(minimum) != len(masses):
+        raise ValueError("Sizes of minimum, maximum and masses are not equal!")
 
     # generate compositions
-    return calculations.formula_composition(tuple(minimum), tuple(maximum), tuple(masses), float(loMass), float(hiMass), int(limit))
+    return calculations.formula_composition(
+        tuple(minimum),
+        tuple(maximum),
+        tuple(masses),
+        float(loMass),
+        float(hiMass),
+        int(limit),
+    )
+
+
 # ----
