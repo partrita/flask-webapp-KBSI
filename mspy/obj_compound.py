@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -------------------------------------------------------------------------
 #     Copyright (C) 2005-2013 Martin Strohalm <www.mmass.org>
 
@@ -45,7 +46,7 @@ class compound:
 
         # get additional attributes
         self.attributes = {}
-        for name, value in attr.items():
+        for name, value in attr.items(): # Use .items() for dict iteration
             self.attributes[name] = value
 
     # ----
@@ -169,7 +170,7 @@ class compound:
                 self._composition[atom] = count
 
         # remove zeros
-        for atom in self._composition.keys():
+        for atom in list(self._composition.keys()): # Iterate over a list of keys when modifying dict
             if self._composition[atom] == 0:
                 del self._composition[atom]
 
@@ -303,14 +304,14 @@ class compound:
         # make ion compound
         if charge and agentFormula != "e":
             ionFormula = self.expression
-            for atom, count in agentFormula.composition().items():
-                ionFormula += "%s%d" % (atom, count * (charge / agentCharge))
+            for atom, count in agentFormula.composition().items(): # Use .items() for dict iteration
+                ionFormula += "%s%d" % (atom, count * (charge // agentCharge)) # Use // for integer division
             ion = compound(ionFormula)
         else:
             ion = compound(self.expression)
 
         # get composition
-        for atom, count in ion.composition().items():
+        for atom, count in ion.composition().items(): # Use .items() for dict iteration
             if count < 0:
                 return False
 

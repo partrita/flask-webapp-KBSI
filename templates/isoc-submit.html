@@ -1,37 +1,41 @@
 {% extends "layout.html" %}
 {% block content %}
-      <div class="jumbotron">
+      <div class="jumbotron"> <!-- BS3: jumbotron, BS5: bg-light p-5 rounded-3 or similar -->
         <h1>Isotope Pattern Calculator</h1>
-        <form class="form-signin" method ="post">
-        <label for="inputName" class="sr-only">compound</label>
-        <input type="text" name="expression" id="inputName" class="form-control" placeholder="e.g. C16H18N2O4S" required autofocus>
+        <form method ="post"> <!-- Removed form-signin -->
+        <label for="inputName" class="visually-hidden">compound</label> <!-- BS5: visually-hidden -->
+        <input type="text" name="expression" id="inputName" class="form-control mb-3" placeholder="e.g. C16H18N2O4S" required autofocus>
 
-        <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-search"></span>  Calculate </button>
-
+        <button id="btnSignUp" class="btn btn-lg btn-primary w-100" type="submit">  Calculate </button> <!-- BS5: w-100, removed glyphicon -->
+        <!-- Note: Glyphicon removed. Consider adding a BS5 icon library if icons are desired -->
       </div>
       <div class="row">
           <div class="col-sm-6 col-xs-12">
-              <div class="panel panel-default">
-                <div class="panel-body">
-                  <h4>
+              <div class="card"> <!-- BS5: card -->
+                <div class="card-body"> <!-- BS5: card-body -->
+                  <h4 class="card-title"> <!-- BS5: card-title -->
                   Options
                   </h4>
-              <label for="pts">Resolution</label>
-              <select name="pts">
-                <option value="500">500</option>
-                <option value="1000">1000</option>
-                <option value="1500">1500</option>
+              <div class="mb-3">
+                <label for="pts" class="form-label">Resolution</label>
+                <select name="pts" class="form-select"> <!-- BS5: form-select -->
+                  <option value="500">500</option>
+                  <option value="1000">1000</option>
+                  <option value="1500">1500</option>
+                  </select>
+              </div>
+              <div class="mb-3">
+                <label for="sigma" class="form-label">Sigma</label>
+                <select name="sigma" class="form-select"> <!-- BS5: form-select -->
+                  <option value="0.15">0.15</option>
+                  <option value="0.07">0.07</option>
+                  <option value="0.01">0.01</option>
+                  <option value="0.001">0.001</option>
+                  <option value="0.3">0.3</option>
                 </select>
-              <label for="sigma">Sigma</label>
-              <select name="sigma">
-                <option value="0.15">0.15</option>
-                <option value="0.07">0.07</option>
-                <option value="0.01">0.01</option>
-                <option value="0.001">0.001</option>
-                <option value="0.3">0.3</option>
-              </select>
-              </p>
-              </form>
+              </div>
+              <!-- </p> appears to be a typo in original, form tag was opened above, closing it here -->
+              </form> <!-- Moved form closing tag to wrap the selects -->
                 </div>
               </div>
               </br>

@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class = "jumbotron">
+<div class="bg-light p-5 rounded-3"> <!-- BS5 equivalent for jumbotron -->
   <h2>Results of '{{name}}'</h2>
   <!-- graph plotting -->
   <div>
@@ -19,7 +19,7 @@
             <td> Intensity </td>
         </tr>
         </thead>
-        {% for key, value in result.iteritems() %}
+        {% for key, value in result.items() %} <!-- Changed iteritems to items -->
         <tr>
             <th> {{ key }} </th>
             <td> {{ value }} </td>

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -------------------------------------------------------------------------
 #     Copyright (C) 2005-2013 Martin Strohalm <www.mmass.org>
 
@@ -73,7 +74,7 @@ def pattern(
     if charge and agentFormula != "e":
         formula = compound.formula()
         for atom, count in agentFormula.composition().items():
-            formula += "%s%d" % (atom, count * (charge / agentCharge))
+            formula += "%s%d" % (atom, count * (charge // agentCharge)) # Use // for integer division
         compound = obj_compound.compound(formula)
 
     # get composition and check for negative atom counts
@@ -101,7 +102,7 @@ def pattern(
             isotope = blocks.elements[symbol].isotopes[int(massNumber)]
             atomPattern.append([isotope[0], 1.0])  # [mass, abundance]
         else:
-            for massNumber, isotope in blocks.elements[atom].isotopes.items():
+            for massNumber, isotope in blocks.elements[atom].isotopes.items(): # Use .items() for dict iteration
                 if isotope[1] > 0.0:
                     atomPattern.append(list(isotope))  # [mass, abundance]
 
