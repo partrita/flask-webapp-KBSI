@@ -798,7 +798,7 @@ def draw_plot(element, sigma, pts):
     xvector, yvector = genGaussian(final, sigma, pts)  # slow
     fig = plt.figure()
     # fid = plt.plot(xvector,yvector)
-    mpld3.save_html(fig, "plot.html")
+    # mpld3.save_html(fig, "plot.html")
     return mpld3.fig_to_html(fig)  # plt.show()
 
 

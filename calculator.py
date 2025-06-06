@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from flask import Flask, request, render_template
 
-import isocalc_
+import isocalc
 import mspy
 
 # create app
@@ -60,7 +60,7 @@ def m2f():
         expression = request.form.get("expression")
         tol = int(request.form.get("tol"))
         formula = float(expression)
-        table = mspy.formulator(formula)
+        table = mspy.formulator(mz=formula, tolerance=tol)
         return render_template("m2f-table.html", result=table, name=formula)
 
 
