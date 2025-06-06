@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -------------------------------------------------------------------------
 #     Copyright (C) 2005-2013 Martin Strohalm <www.mmass.org>
 
@@ -2146,7 +2147,7 @@ def loadMonomers(
     # update current lib
     if container and clear:
         monomers.clear()
-    for key in container:
+    for key in list(container.keys()):
         if replace or key not in monomers:
             monomers[key] = container[key]
 
@@ -2195,7 +2196,7 @@ def loadEnzymes(path=os.path.join(blocksdir, "enzymes.xml"), clear=False, replac
     # update current lib
     if container and clear:
         enzymes.clear()
-    for key in container:
+    for key in list(container.keys()):
         if replace or key not in enzymes:
             enzymes[key] = container[key]
 
@@ -2246,7 +2247,7 @@ def loadModifications(
     # update current lib
     if container and clear:
         modifications.clear()
-    for key in container:
+    for key in list(container.keys()):
         if replace or key not in modifications:
             modifications[key] = container[key]
 
@@ -2279,7 +2280,7 @@ def saveMonomers(path=os.path.join(blocksdir, "monomers.xml")):
     buff = '<?xml version="1.0" encoding="utf-8" ?>\n'
     buff += '<mspyMonomers version="1.0">\n'
 
-    abbrs = monomers.keys()
+    abbrs = list(monomers.keys())
     abbrs.sort()
     for abbr in abbrs:
         if monomers[abbr].category != "_InternalAA":
@@ -2298,9 +2299,8 @@ def saveMonomers(path=os.path.join(blocksdir, "monomers.xml")):
 
     # save monomers file
     try:
-        save = open(path, "w")
-        save.write(buff.encode("utf-8"))
-        save.close()
+        with open(path, "wb") as save:
+            save.write(buff.encode("utf-8"))
         return True
     except:
         return False
@@ -2316,7 +2316,7 @@ def saveEnzymes(path=os.path.join(blocksdir, "enzymes.xml")):
     buff = '<?xml version="1.0" encoding="utf-8" ?>\n'
     buff += '<mspyEnzymes version="1.0">\n'
 
-    names = enzymes.keys()
+    names = list(enzymes.keys())
     names.sort()
     for name in names:
         buff += '  <enzyme name="%s">\n' % (_escape(enzymes[name].name))
@@ -2337,9 +2337,8 @@ def saveEnzymes(path=os.path.join(blocksdir, "enzymes.xml")):
 
     # save enzymes file
     try:
-        save = open(path, "w")
-        save.write(buff.encode("utf-8"))
-        save.close()
+        with open(path, "wb") as save:
+            save.write(buff.encode("utf-8"))
         return True
     except:
         return False
@@ -2355,7 +2354,7 @@ def saveModifications(path=os.path.join(blocksdir, "modifications.xml")):
     buff = '<?xml version="1.0" encoding="utf-8" ?>\n'
     buff += '<mspyModifications version="1.0">\n'
 
-    names = modifications.keys()
+    names = list(modifications.keys())
     names.sort()
     for name in names:
         buff += '  <modification name="%s">\n' % (_escape(modifications[name].name))
@@ -2376,9 +2375,8 @@ def saveModifications(path=os.path.join(blocksdir, "modifications.xml")):
 
     # save modifications file
     try:
-        save = open(path, "w")
-        save.write(buff.encode("utf-8"))
-        save.close()
+        with open(path, "wb") as save:
+            save.write(buff.encode("utf-8"))
         return True
     except:
         return False

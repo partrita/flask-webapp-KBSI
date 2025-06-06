@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -------------------------------------------------------------------------
 #     Copyright (C) 2005-2013 Martin Strohalm <www.mmass.org>
 
@@ -23,7 +24,7 @@ import obj_compound
 
 # load modules
 import mod_basics
-import calculations
+from .py_calculations import formula_composition # Changed import
 
 
 # MASS TO FORMULA FUNCTIONS
@@ -151,7 +152,7 @@ def _compositions(minimum, maximum, masses, loMass, hiMass, limit):
         raise ValueError("Sizes of minimum, maximum and masses are not equal!")
 
     # generate compositions
-    return calculations.formula_composition(
+    return formula_composition( # Changed call
         tuple(minimum),
         tuple(maximum),
         tuple(masses),

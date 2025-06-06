@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -------------------------------------------------------------------------
 #     Copyright (C) 2005-2013 Martin Strohalm <www.mmass.org>
 

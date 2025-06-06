@@ -1,15 +1,13 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from flask import Flask, request, render_template
-# from flask.ext.script import Manager
 
-import isocalc_
+import isocalc
 import mspy
 
 # create app
 app = Flask(__name__)
 
 
-# manager = Manager(app)
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -62,11 +60,18 @@ def m2f():
         expression = request.form.get("expression")
         tol = int(request.form.get("tol"))
         formula = float(expression)
-        table = mspy.formulator(formula)
+        table = mspy.formulator(mz=formula, tolerance=tol)
         return render_template("m2f-table.html", result=table, name=formula)
 
 
 # run app
 if __name__ == "__main__":
-    app.run(debug=True)
-# debug option must be off when deployed
+    # Debug mode should be controlled by FLASK_DEBUG environment variable
+    # app.run(debug=True) # Old way
+    # For modern Flask, 'flask run' command handles this.
+    # The app.run() call is often not needed for development if using 'flask run'.
+    # However, to keep it runnable directly with 'python calculator.py',
+    # we can check an environment variable.
+    import os
+    debug_mode = os.environ.get('FLASK_DEBUG', 'false').lower() == 'true'
+    app.run(debug=debug_mode, host='0.0.0.0')

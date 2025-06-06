@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import re  # for regular expressions
 import sys
 from numpy import matrix, transpose
@@ -15,10 +16,10 @@ molecules = ""
 # try:
 # 	if "-f" in arguments:
 # 		molecules=arguments[arguments.index('-f')+1]
-# 		print 'Will calculate pattern for',molecules
+# 		print('Will calculate pattern for',molecules)
 # 	elif "--formula" in arguments:
 # 		molecules=arguments[arguments.index('--formula')+1]
-# 		print 'Will calculate pattern for',molecules
+# 		print('Will calculate pattern for',molecules)
 # except:
 # 	arguments="--help"
 
@@ -30,10 +31,10 @@ charges = 0
 # try:
 # 	if "-c" in arguments:
 # 		charges=int(arguments[arguments.index('-c')+1])
-# 		print 'Will use the following charge',charges
+# 		print('Will use the following charge',charges)
 # 	elif "--charge" in arguments:
 # 		charges=int(arguments[arguments.index('--charge')+1])
-# 		print 'Will use the following charge',charges
+# 		print('Will use the following charge',charges)
 # except:
 # 	charges=0
 
@@ -42,11 +43,11 @@ save = 0
 # 	if "-o" in arguments:
 # 		savefile=arguments[arguments.index('-o')+1]
 # 		save=1
-# 		print 'Will save pattern in',savefile
+# 		print('Will save pattern in',savefile)
 # 	elif "--output" in arguments:
 # 		savefile=arguments[arguments.index('-output')+1]
 # 		save=1
-# 		print 'Will save pattern in',savefile
+# 		print('Will save pattern in',savefile)
 # except:
 # 	save=0
 
@@ -54,11 +55,11 @@ plot = 0
 # try:
 # 	if "-p" in arguments:
 # 		if ('y' in arguments[arguments.index('-p')+1]) or ('Y' in arguments[arguments.index('-p')+1]):
-# 			print 'Will plot output'
+# 			print('Will plot output')
 # 			plot=1
 # 	elif "--plot" in arguments:
 # 		if (('yes' in arguments[arguments.index('--plot')+1]) or ('YES' in arguments[arguments.index('--plot')+1])) or ('Yes' in arguments[arguments.index('--plot')+1]):
-# 			print 'Will plot output'
+# 			print('Will plot output')
 # 			plot=1
 # except:
 # 	plot=0
@@ -83,21 +84,21 @@ except:
 
 # try:
 # 	if ("-h" in arguments) or ("--help" in arguments):
-# 		print " "
-# 		print "\tUsage:"
-# 		print "\t-h\t--help   \tYou're looking at it."
-# 		print "\t-f\t--formula\tFormula enclosed in apostrophes, e.g. 'Al2(NO3)4'."
-# 		print "\t-c\t--charge\tCharge, e.g. -2 or 3. Must be an integer. If not provided the charge will be calculated"
-# 		print "\t  \t        \tbased on default oxidation states as defined in this file."
-# 		print "\t-o\t--output\tFilename to save data into. The data will be saved as a tab-separated file. No output by default."
-# 		print "\t-p\t--plot   \tWhether to plot or not. Can be yes, YES, Yes, Y, y. Default is no."
-# 		print "\t-g\t--gauss  \tGaussian broadening factor (affects resolution). Default is 0.15. Lower value gives higher resolution."
-# 		print "\t  \t         \tAdjust this factor to make the spectrum look like the experimentally observed one."
-# 		print "\t-r\t--resolution\tNumber of points to use for the m/z axis (affects resolution). Default is 500. Higher is slower."
-# 		print " "
-# 		print "\t Example:"
-# 		print "\t./isocalc.py -f 'Fe(ClO3)5' -p y -g 0.25 -o ironperchlorate.dat -c -2 -r 250"
-# 		print ""
+# 		print(" ")
+# 		print("\tUsage:")
+# 		print("\t-h\t--help   \tYou're looking at it.")
+# 		print("\t-f\t--formula\tFormula enclosed in apostrophes, e.g. 'Al2(NO3)4'.")
+# 		print("\t-c\t--charge\tCharge, e.g. -2 or 3. Must be an integer. If not provided the charge will be calculated")
+# 		print("\t  \t        \tbased on default oxidation states as defined in this file.")
+# 		print("\t-o\t--output\tFilename to save data into. The data will be saved as a tab-separated file. No output by default.")
+# 		print("\t-p\t--plot   \tWhether to plot or not. Can be yes, YES, Yes, Y, y. Default is no.")
+# 		print("\t-g\t--gauss  \tGaussian broadening factor (affects resolution). Default is 0.15. Lower value gives higher resolution.")
+# 		print("\t  \t         \tAdjust this factor to make the spectrum look like the experimentally observed one.")
+# 		print("\t-r\t--resolution\tNumber of points to use for the m/z axis (affects resolution). Default is 500. Higher is slower.")
+# 		print(" ")
+# 		print("\t Example:")
+# 		print("\t./isocalc.py -f 'Fe(ClO3)5' -p y -g 0.25 -o ironperchlorate.dat -c -2 -r 250")
+# 		print("")
 # 		exit=1
 # except:
 # 	a=1		 #do nothing
@@ -572,7 +573,7 @@ def molmass(formula):
     mass = 0
     while len(formula) > 0:
         segments = re.findall("[A-Z][a-z]*[0-9]*", formula)
-        for i in range(0, len(segments)):
+        for i in range(len(segments)):
             mass += getMass(segments[i])
         formula = re.sub(formula, "", formula)
     return mass
@@ -582,7 +583,7 @@ def molcharge(formula):
     charge = 0
     while len(formula) > 0:
         segments = re.findall("[A-Z][a-z]*[0-9]*", formula)
-        for i in range(0, len(segments)):
+        for i in range(len(segments)):
             charge += getCharge(segments[i])
         formula = re.sub(formula, "", formula)
     return charge
@@ -593,7 +594,7 @@ def isotoperatios(formula):
     isotope = []
     while len(formula) > 0:
         segments = re.findall("[A-Z][a-z]*[0-9]*", formula)
-        for i in range(0, len(segments)):
+        for i in range(len(segments)):
             isotope += getIsotope(segments[i], 3)
         formula = re.sub(formula, "", formula)
     return isotope
@@ -604,7 +605,7 @@ def isotopemasses(formula):
     isotope = []
     while len(formula) > 0:
         segments = re.findall("[A-Z][a-z]*[0-9]*", formula)
-        for i in range(0, len(segments)):
+        for i in range(len(segments)):
             isotope += getIsotope(segments[i], 2)
         formula = re.sub(formula, "", formula)
     return isotope
@@ -619,10 +620,10 @@ def formulaExpander(formula):
     while len(re.findall("\(\w*\)", formula)) > 0:
         parenthetical = re.findall("\(\w*\)[0-9]+", formula)
         for i in parenthetical:
-            p = re.findall("[0-9]+", str(re.findall("\)[0-9]+", i)))
+            p = re.findall("[0-9]+", str(re.findall(r"\)[0-9]+", i)))
             j = re.findall("[A-Z][a-z]*[0-9]*", i)
             oldj = j
-            for n in range(0, len(j)):
+            for n in range(len(j)):
                 numero = re.findall("[0-9]+", j[n])
                 if len(numero) != 0:
                     for k in numero:
@@ -670,10 +671,10 @@ def slowcartesian(rx, mx, ry, my, i):
     maxx = max(ry)
     ry = [n / maxx for n in ry]  # normalise
     drop = 0
-    for k in range(0, len(rx[i])):
+    for k in range(len(rx[i])):
         kk = rx[i][k]
         kl = mx[i][k]
-        for j in range(0, len(ry)):
+        for j in range(len(ry)):
             jk = ry[j]
             jl = my[j]
             comp = jk * kk
@@ -706,7 +707,7 @@ def isotopes(ratios, masses):
 def genDict(m, n, charges):
     newn = []
     newm = []
-    for i in range(0, len(n)):
+    for i in range(len(n)):
         if n[i] > cutoff / 1000:
             newn += [n[i]]
             newm += [m[i]]
@@ -721,18 +722,18 @@ def genDict(m, n, charges):
 
     keys = []
     phrases = []
-    for item in signals.keys():
-        phrases += map(lambda n: sum(n), [signals[item]])
+    for item in list(signals.keys()):
+        phrases += list(map(lambda n: sum(n), [signals[item]]))
         keys += [item / abs(charges)]
 
     semifinal = dict(zip(keys, phrases))
 
-    largest_value = max(phrases)
+    largest_value = max(phrases) if phrases else 0 # handle empty phrases
     keys = []
     phrases = []
-    for eachkey in sorted(semifinal):
+    for eachkey in sorted(semifinal.keys()):
         keys += [eachkey]
-        phrases += [semifinal[eachkey] * 100 / largest_value]
+        phrases += [semifinal[eachkey] * 100 / largest_value if largest_value else 0] # handle largest_value is 0
     final = dict(zip(keys, phrases))
     return final
 
@@ -743,16 +744,17 @@ def gaussian(x, c, s):
 
 
 def genGaussian(final, sigma, pts):
-    x = final.keys()
-    y = final.values()
-    xvector = linspace(min(x) - 1, max(x) + 1, pts)
+    x = list(final.keys())
+    y = list(final.values())
+    xvector = linspace(min(x) - 1, max(x) + 1, pts) if x else [] # handle empty x
     yvector = []
     for i in xvector:
         yatx = 0
-        for j in range(0, len(x)):
+        for j in range(len(x)):
             yatx += y[j] * gaussian(x[j], i, sigma)
         yvector += [yatx]
-    yvector = true_divide(yvector, max(yvector) / 100)
+    if yvector: # handle empty yvector
+        yvector = true_divide(yvector, max(yvector) / 100)
     return (xvector, yvector)
 
 
@@ -776,7 +778,7 @@ def iso_table(element):
     else:
         final = genDict(isomasses[0], isoratios[0], charges)
     isotable = {}
-    for i in sorted(final.keys()):
+    for i in sorted(list(final.keys())):
         if final[i] > cutoff:
             isotable[i] = final[i]
     return isotable
@@ -796,7 +798,7 @@ def draw_plot(element, sigma, pts):
     xvector, yvector = genGaussian(final, sigma, pts)  # slow
     fig = plt.figure()
     # fid = plt.plot(xvector,yvector)
-    mpld3.save_html(fig, "plot.html")
+    # mpld3.save_html(fig, "plot.html")
     return mpld3.fig_to_html(fig)  # plt.show()
 
 
@@ -808,7 +810,7 @@ def save_table(element):
         # g.write('mass'+', '+'intensity'+'\n')
         xs = xvector.tolist()
         ys = yvector.tolist()
-        for i in range(0, len(xs)):
+        for i in range(len(xs)):
             g.write(str(xs[i]) + ", " + str(ys[i]) + "\n")
         g.close
 
@@ -827,8 +829,8 @@ if __name__ == "__main__":
     # molecules=molecules.split(',')
     # for element in molecules:
     # element=formulaExpander(element)
-    # print ('The mass of %(substance)s is %(Mass)f and the calculated charge is %(Charge)d with m/z of %(Mz)f.' % {'substance': \
-    # element, 'Mass': molmass(element), 'Charge': molcharge(element),'Mz':mz(molmass(element),molcharge(element),charges)})
+    # print(('The mass of %(substance)s is %(Mass)f and the calculated charge is %(Charge)d with m/z of %(Mz)f.' % {'substance': \
+    # element, 'Mass': molmass(element), 'Charge': molcharge(element),'Mz':mz(molmass(element),molcharge(element),charges)}))
 
     # molproperty(element)
     # what is element? -> formula
@@ -839,7 +841,7 @@ if __name__ == "__main__":
     # if charges==0:
     # charges=1 #assumes neutral charge
     # else:
-    # print "Using user-supplied charge of %d for mass spectrum" % charges
+    # print("Using user-supplied charge of %d for mass spectrum" % charges)
     # isomasses=isotopemasses(element)
     # isoratios=isotoperatios(element)
 
@@ -851,9 +853,9 @@ if __name__ == "__main__":
     # final=genDict(isomasses[0],isoratios[0],charges)
 
     # print out the table on concole windows
-    # for i in sorted(final.keys()): #fast
+    # for i in sorted(list(final.keys())): #fast
     # if final[i]>cutoff:
-    # print i,final[i]
+    # print(i,final[i])
 
     # to drow plot
     # xvector,yvector=genGaussian(final,sigma,pts) #slow
@@ -867,6 +869,6 @@ if __name__ == "__main__":
         # g.write('mass'+', '+'intensity'+'\n')
         xs = xvector.tolist()
         ys = yvector.tolist()
-        for i in range(0, len(xs)):
+        for i in range(len(xs)):
             g.write(str(xs[i]) + ", " + str(ys[i]) + "\n")
         g.close
