@@ -521,7 +521,7 @@ def signal_smooth_ma(y_array, window_size, cycles=1):
 #
 # A placeholder function or a note indicating its absence:
 
-def formula_composition(minimum_counts, maximum_counts, element_masses,
+def formula_composition(minimum_counts, maximum_counts, masses,
                         low_mass_target, high_mass_target, max_results_limit):
     """
     Placeholder for a function that generates molecular compositions.
@@ -531,7 +531,7 @@ def formula_composition(minimum_counts, maximum_counts, element_masses,
     Args:
         minimum_counts (tuple): Minimum atom counts for each element.
         maximum_counts (tuple): Maximum atom counts for each element.
-        element_masses (tuple): Masses of the elements (sorted reverse).
+        masses (tuple): Masses of the elements (sorted reverse).
         low_mass_target (float): Low mass limit for generated formulas.
         high_mass_target (float): High mass limit for generated formulas.
         max_results_limit (int): Maximum number of formula combinations.
@@ -547,7 +547,7 @@ def formula_composition(minimum_counts, maximum_counts, element_masses,
     # from itertools import product
     # count_ranges = [range(min_c, max_c + 1) for min_c, max_c in zip(minimum_counts, maximum_counts)]
     # for combo in product(*count_ranges):
-    #     current_mass = sum(c * m for c, m in zip(combo, element_masses))
+    #     current_mass = sum(c * m for c, m in zip(combo, masses))
     #     if low_mass_target <= current_mass <= high_mass_target:
     #         results.append(list(combo))
     #         if len(results) >= max_results_limit:
@@ -574,7 +574,7 @@ def formula_composition(minimum_counts, maximum_counts, element_masses,
             return
 
         if element_idx == num_elements: # Base case: all elements have been assigned a count
-            if lo_mass_target <= current_mass_sum <= high_mass_target:
+            if low_mass_target <= current_mass_sum <= high_mass_target:
                 results.append(list(current_composition_counts))
             return
 
@@ -612,12 +612,12 @@ def formula_composition(minimum_counts, maximum_counts, element_masses,
             # Check if new_mass_intermediate plus the maximum possible mass from *subsequent* elements is still less than lo_mass
             if element_idx + 1 < num_elements:
                 max_mass_from_next_elements = max_mass_remaining_at_idx[element_idx+1]
-                if new_mass_intermediate + max_mass_from_next_elements < lo_mass_target:
+                if new_mass_intermediate + max_mass_from_next_elements < low_mass_target:
                     # If even by picking the largest counts for all subsequent elements, we are still below the target,
                     # then the current count for element_idx is too small. So, continue to the next count for element_idx.
                     # No need to backtrack current_composition_counts[element_idx] as it's reset by the loop.
                     continue 
-            elif new_mass_intermediate < lo_mass_target: # Last element, check directly
+            elif new_mass_intermediate < low_mass_target: # Last element, check directly
                     continue
 
 

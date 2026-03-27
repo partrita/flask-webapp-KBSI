@@ -23,16 +23,15 @@ import re
 # load stopper
 
 # load blocks
-import blocks
 
 # load objects
-import obj_compound
 
 
 # BASIC CONSTANTS
 # ---------------
 
 ELECTRON_MASS = 0.00054857990924
+
 
 FORMULA_PATTERN = re.compile(
     r"""
@@ -323,3 +322,6 @@ def frules(
 
 
 # ----
+
+from . import blocks
+from . import obj_compound

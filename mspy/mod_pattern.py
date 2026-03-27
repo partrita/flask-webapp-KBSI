@@ -21,20 +21,20 @@ import math
 import numpy
 
 # load stopper
-from mod_stopper import CHECK_FORCE_QUIT
+from .mod_stopper import CHECK_FORCE_QUIT
 
 # load blocks
-import blocks
+from . import blocks
 
 # load objects
-import obj_compound
-import obj_peaklist
+from . import obj_compound
+#import obj_peaklist
 
 # load modules
-import calculations
-import mod_basics
-import mod_signal
-import mod_peakpicking
+from . import py_calculations as calculations
+from . import mod_basics
+#import mod_signal
+#import mod_peakpicking
 
 
 # ISOTOPIC PATTERN FUNCTIONS

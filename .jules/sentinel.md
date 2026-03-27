@@ -1,0 +1,5 @@
+
+## 2026-03-27 - [Missing Input Validation and Error Handling]
+**Vulnerability:** The `/isoc` and `/m2f` Flask routes lacked input validation and error handling. Unsanitized strings from `request.form.get("expression")` were directly converted to floats and parsed by the backend libraries, which threw unhandled `TypeError` and `ValueError` exceptions on bad input, leading to 500 Internal Server Errors and potential stack trace leakage or application crashes.
+**Learning:** This codebase relies on external libraries for computation (`isocalc`, `mspy`) that are sensitive to incorrectly formatted data and will raise exceptions. Because Flask development servers can leak stack traces to users on 500 errors, any direct use of `request.form.get` for numeric or strict-format data is a vulnerability pattern here.
+**Prevention:** All user inputs must be validated (e.g., using regex for chemical formulas) and type conversions must be wrapped in `try-except` blocks to handle malformed input gracefully and return secure 400 Bad Request responses instead of crashing.
