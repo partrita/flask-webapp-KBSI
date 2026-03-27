@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from flask import Flask, request, render_template
+import re
 
 import isocalc
 import mspy
@@ -7,6 +8,13 @@ import mspy
 # create app
 app = Flask(__name__)
 
+
+@app.after_request
+def add_security_headers(response):
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+    return response
 
 @app.route("/")
 def index():
@@ -31,23 +39,27 @@ def isoc():
     elif request.method == "POST":
         # calculate result
         expression = request.form.get("expression")
-        pts = int(request.form.get("pts"))
-        sigma = float(request.form.get("sigma"))
+        try:
+            if not expression or not re.match(r"^[A-Za-z0-9\(\)]+$", expression):
+                return "Invalid expression provided.", 400
+            pts = int(request.form.get("pts"))
+            sigma = float(request.form.get("sigma"))
 
-        # result = str(expression)
-        formula = str(expression)
-        charge = isocalc_.molcharge(formula)
-        mass = isocalc_.molmass(formula)
-        table = isocalc_.iso_table(formula)
-        plot = isocalc_.draw_plot(formula, sigma, pts)
-        return render_template(
-            "isoc-table.html",
-            result=table,
-            mass=mass,
-            name=formula,
-            plot=plot,
-            charge=charge,
-        )
+            formula = str(expression)
+            charge = isocalc.molcharge(formula)
+            mass = isocalc.molmass(formula)
+            table = isocalc.iso_table(formula)
+            plot = isocalc.draw_plot(formula, sigma, pts)
+            return render_template(
+                "isoc-table.html",
+                result=table,
+                mass=mass,
+                name=formula,
+                plot=plot,
+                charge=charge,
+            )
+        except Exception:
+            return "An error occurred while processing your request.", 400
 
 
 @app.route("/m2f", methods=["GET", "POST"])
@@ -58,10 +70,13 @@ def m2f():
     elif request.method == "POST":
         # calculate result
         expression = request.form.get("expression")
-        tol = int(request.form.get("tol"))
-        formula = float(expression)
-        table = mspy.formulator(mz=formula, tolerance=tol)
-        return render_template("m2f-table.html", result=table, name=formula)
+        try:
+            tol = int(request.form.get("tol"))
+            formula = float(expression)
+            table = mspy.formulator(mz=formula, tolerance=tol)
+            return render_template("m2f-table.html", result=table, name=formula)
+        except Exception:
+            return "An error occurred while processing your request.", 400
 
 
 # run app

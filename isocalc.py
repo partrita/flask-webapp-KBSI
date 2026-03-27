@@ -545,7 +545,7 @@ def getMass(x):
     number = re.findall(r"[0-9]+", x)
     multiplier = float(number[0]) if number else 1
     atomic_mass = float(
-        matrix(PeriodicTable[atom[0]][2]) * transpose(matrix(PeriodicTable[atom[0]][3]))
+        (matrix(PeriodicTable[atom[0]][2]) * transpose(matrix(PeriodicTable[atom[0]][3]))).item()
     )
     return atomic_mass * multiplier
 
