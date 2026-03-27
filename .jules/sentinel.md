@@ -1,0 +1,4 @@
+## 2024-05-30 - Missing error handling and input validation in Flask endpoints
+**Vulnerability:** The Flask endpoints (`/isoc` and `/m2f`) processed raw POST data (from `request.form.get()`) without validation or exception handling. Submitting malformed strings, non-floats, or missing data caused 500 Internal Server Errors, potentially exposing stack traces.
+**Learning:** Raw input must always be validated (e.g., verifying chemical formula format with a regex `^[A-Za-z0-9\(\)]+$`) before passing to internal modules like `isocalc` or `mspy`. Unhandled exceptions in backend calculation modules will bubble up if not caught.
+**Prevention:** Always wrap request data parsing and external library calls in `try...except` blocks in route handlers, returning a safe, generic 400 Bad Request message to avoid information disclosure.

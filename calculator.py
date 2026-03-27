@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from flask import Flask, request, render_template
 
+import re
 import isocalc
 import mspy
 
@@ -30,24 +31,31 @@ def isoc():
         return render_template("isoc-submit.html")
     elif request.method == "POST":
         # calculate result
-        expression = request.form.get("expression")
-        pts = int(request.form.get("pts"))
-        sigma = float(request.form.get("sigma"))
+        try:
+            expression = request.form.get("expression")
+            if not expression or not re.match(r"^[A-Za-z0-9\(\)]+$", expression):
+                return "Invalid formula format", 400
 
-        # result = str(expression)
-        formula = str(expression)
-        charge = isocalc_.molcharge(formula)
-        mass = isocalc_.molmass(formula)
-        table = isocalc_.iso_table(formula)
-        plot = isocalc_.draw_plot(formula, sigma, pts)
-        return render_template(
-            "isoc-table.html",
-            result=table,
-            mass=mass,
-            name=formula,
-            plot=plot,
-            charge=charge,
-        )
+            pts = int(request.form.get("pts"))
+            sigma = float(request.form.get("sigma"))
+
+            # result = str(expression)
+            formula = str(expression)
+            charge = isocalc.molcharge(formula)
+            mass = isocalc.molmass(formula)
+            table = isocalc.iso_table(formula)
+            plot = isocalc.draw_plot(formula, sigma, pts)
+            return render_template(
+                "isoc-table.html",
+                result=table,
+                mass=mass,
+                name=formula,
+                plot=plot,
+                charge=charge,
+            )
+        except Exception as e:
+            # Do not expose internal stack trace
+            return "An error occurred during calculation", 400
 
 
 @app.route("/m2f", methods=["GET", "POST"])
@@ -57,11 +65,16 @@ def m2f():
         return render_template("m2f-submit.html")
     elif request.method == "POST":
         # calculate result
-        expression = request.form.get("expression")
-        tol = int(request.form.get("tol"))
-        formula = float(expression)
-        table = mspy.formulator(mz=formula, tolerance=tol)
-        return render_template("m2f-table.html", result=table, name=formula)
+        try:
+            expression = request.form.get("expression")
+            tol = int(request.form.get("tol"))
+            formula = float(expression)
+            table = mspy.formulator(mz=formula, tolerance=tol)
+            return render_template("m2f-table.html", result=table, name=formula)
+        except (ValueError, TypeError):
+            return "Invalid input format", 400
+        except Exception as e:
+            return "An error occurred during calculation", 400
 
 
 # run app
