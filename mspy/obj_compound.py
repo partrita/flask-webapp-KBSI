@@ -19,11 +19,11 @@
 # load stopper
 
 # load objects
-import blocks
+from . import blocks
 
 # load modules
-import mod_basics
-import mod_pattern
+from . import mod_basics
+from . import mod_pattern
 
 
 # COMPOUND OBJECT DEFINITION
