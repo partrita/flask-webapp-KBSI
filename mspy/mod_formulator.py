@@ -24,7 +24,7 @@ from . import obj_compound
 
 # load modules
 from . import mod_basics
-from .py_calculations import formula_composition # Changed import
+from .py_calculations import formula_composition  # Changed import
 
 
 # MASS TO FORMULA FUNCTIONS
@@ -152,7 +152,7 @@ def _compositions(minimum, maximum, masses, loMass, hiMass, limit):
         raise ValueError("Sizes of minimum, maximum and masses are not equal!")
 
     # generate compositions
-    return formula_composition( # Changed call
+    return formula_composition(  # Changed call
         tuple(minimum),
         tuple(maximum),
         tuple(masses),

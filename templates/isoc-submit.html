@@ -1,57 +1,53 @@
 {% extends "layout.html" %}
 {% block content %}
-      <div class="jumbotron"> <!-- BS3: jumbotron, BS5: bg-light p-5 rounded-3 or similar -->
-        <h1>Isotope Pattern Calculator</h1>
-        <form method ="post"> <!-- Removed form-signin -->
-        <label for="inputName" class="visually-hidden">compound</label> <!-- BS5: visually-hidden -->
-        <input type="text" name="expression" id="inputName" class="form-control mb-3" placeholder="e.g. C16H18N2O4S" required autofocus>
-
-        <button id="btnSignUp" class="btn btn-lg btn-primary w-100" type="submit">  Calculate </button> <!-- BS5: w-100, removed glyphicon -->
-        <!-- Note: Glyphicon removed. Consider adding a BS5 icon library if icons are desired -->
-      </div>
-      <div class="row">
-          <div class="col-sm-6 col-xs-12">
-              <div class="card"> <!-- BS5: card -->
-                <div class="card-body"> <!-- BS5: card-body -->
-                  <h4 class="card-title"> <!-- BS5: card-title -->
-                  Options
-                  </h4>
-              <div class="mb-3">
+<div class="bg-light p-5 rounded-3 mb-4">
+    <h1>Isotope Pattern Calculator</h1>
+    <form method="post">
+        <div class="row">
+            <div class="col-md-8">
+                <label for="inputName" class="form-label">Chemical Formula</label>
+                <input type="text" name="expression" id="inputName" class="form-control mb-3" placeholder="e.g. C16H18N2O4S" required autofocus>
+            </div>
+            <div class="col-md-2">
                 <label for="pts" class="form-label">Resolution</label>
-                <select name="pts" class="form-select"> <!-- BS5: form-select -->
-                  <option value="500">500</option>
-                  <option value="1000">1000</option>
-                  <option value="1500">1500</option>
-                  </select>
-              </div>
-              <div class="mb-3">
-                <label for="sigma" class="form-label">Sigma</label>
-                <select name="sigma" class="form-select"> <!-- BS5: form-select -->
-                  <option value="0.15">0.15</option>
-                  <option value="0.07">0.07</option>
-                  <option value="0.01">0.01</option>
-                  <option value="0.001">0.001</option>
-                  <option value="0.3">0.3</option>
+                <select name="pts" class="form-select">
+                    <option value="500">500</option>
+                    <option value="1000">1000</option>
+                    <option value="1500">1500</option>
                 </select>
-              </div>
-              <!-- </p> appears to be a typo in original, form tag was opened above, closing it here -->
-              </form> <!-- Moved form closing tag to wrap the selects -->
-                </div>
-              </div>
-              </br>
-              <h4>Resolution value</h4>
-              <p>Number of points to use for the m/z axis (affects resolution). Default is 500. Higher is slower</p>
-              <h4>Sigma value</h4>
-              <p>Gaussian broadening factor (affects resolution). Default is 0.15. Lower value gives higher resolution.</p>
-          </div>
-          <div class="col-sm-6 col-xs-12">
-              <h4>About</h4>
-              <p> This program can calculate the isotopic distribution of a given chemical species. This program is still under development. If you have any comments or suggestions I would like to hear from you.</p>
-
-              <h4>Example</h4>
-              <p>Key in the chemical formula for which you would like to determine the isotopic distributions. Calculation should take upwards of a few seconds depending on the size of the chemical species. The species is assumed neutral.</p>
+            </div>
+            <div class="col-md-2">
+                <label for="sigma" class="form-label">Sigma</label>
+                <select name="sigma" class="form-select">
+                    <option value="0.15">0.15</option>
+                    <option value="0.07">0.07</option>
+                    <option value="0.01">0.01</option>
+                    <option value="0.001">0.001</option>
+                    <option value="0.3">0.3</option>
+                </select>
+            </div>
         </div>
-      </div>
+        <button id="btnSignUp" class="btn btn-lg btn-primary mt-3" type="submit">Calculate</button>
+    </form>
+</div>
 
+<div class="row mt-4">
+    <div class="col-sm-6">
+        <h4>Parameter Info</h4>
+        <div class="card mb-3">
+            <div class="card-body">
+                <h6>Resolution</h6>
+                <p class="text-muted small">Number of points to use for the m/z axis. Default is 500. Higher values provide smoother curves but take longer to calculate.</p>
+                <h6>Sigma</h6>
+                <p class="text-muted small">Gaussian broadening factor. Default is 0.15. Lower values give higher resolution (sharper peaks).</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <h4>About</h4>
+        <p>This program calculates the isotopic distribution of a given chemical species. The species is assumed to be neutral by default. Simply enter the formula and click Calculate.</p>
+        <h4>Example</h4>
+        <p>Try formulas like <code>C6H12O6</code>, <code>Fe(H2O)6</code>, or complex organic molecules. Calculation time depends on the molecular weight and complexity.</p>
+    </div>
+</div>
 {% endblock %}
-

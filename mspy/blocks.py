@@ -120,8 +120,8 @@ class enzyme:
         self.modsAfter = modsAfter
 
         # check formulae
-        cmpd = obj_compound.compound(nTermFormula)
-        cmpd = obj_compound.compound(cTermFormula)
+        obj_compound.compound(nTermFormula)
+        obj_compound.compound(cTermFormula)
 
     # ----
 
@@ -153,8 +153,8 @@ class fragment:
         self.cTermFilter = cTermFilter
 
         # check formulae
-        cmpd = obj_compound.compound(nTermFormula)
-        cmpd = obj_compound.compound(cTermFormula)
+        obj_compound.compound(nTermFormula)
+        obj_compound.compound(cTermFormula)
 
     # ----
 
@@ -2302,7 +2302,7 @@ def saveMonomers(path=os.path.join(blocksdir, "monomers.xml")):
         with open(path, "wb") as save:
             save.write(buff.encode("utf-8"))
         return True
-    except:
+    except Exception:
         return False
 
 
@@ -2340,7 +2340,7 @@ def saveEnzymes(path=os.path.join(blocksdir, "enzymes.xml")):
         with open(path, "wb") as save:
             save.write(buff.encode("utf-8"))
         return True
-    except:
+    except Exception:
         return False
 
 
@@ -2378,7 +2378,7 @@ def saveModifications(path=os.path.join(blocksdir, "modifications.xml")):
         with open(path, "wb") as save:
             save.write(buff.encode("utf-8"))
         return True
-    except:
+    except Exception:
         return False
 
 

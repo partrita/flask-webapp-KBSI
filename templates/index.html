@@ -1,31 +1,20 @@
 {% extends "layout.html" %}
 {% block content %}
-        <div class="bg-light p-5 rounded-3"> <!-- BS5 equivalent for jumbotron -->
-             <h1>My demo Web app</h1>
-            <p class="lead">This is index page</p>
-            <br>
-            <p><a class="btn btn-lg btn-success" href="/tools" role="button">Learn more</a>
-            </p >
-        </div>
+<div class="bg-light p-5 rounded-3 mb-4">
+    <h1>Mass Spectrometry Web App</h1>
+    <p class="lead">Isotopic pattern calculations and chemical tools for mass spectrometry analysis.</p>
+</div>
 
-        <div class="row">
-            <div class="col-sm-6">
-                <h4>Bucket List</h4>
-                <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-                <h4>Bucket List</h4>
-                <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-            </div>
-
-            <div class="col-sm-6">
-                <h4>Bucket List</h4>
-                <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-                <h4>Bucket List</h4>
-                <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-
-            </div>
-        </div>
+<div class="row">
+    <div class="col-md-6">
+        <h3>Isotope Calculator</h3>
+        <p>Determine the isotopic distribution of any chemical species. Useful for mass spec identification.</p>
+        <p><a class="btn btn-secondary" href="/isoc" role="button">Calculate &raquo;</a></p>
+    </div>
+    <div class="col-md-6">
+        <h3>Formula Converter</h3>
+        <p>Convert m/z values back into possible chemical formulas based on user-defined mass tolerances.</p>
+        <p><a class="btn btn-secondary" href="/m2f" role="button">Convert &raquo;</a></p>
+    </div>
+</div>
 {% endblock %}

@@ -1,5 +1,3 @@
-from flask import Flask, request
-import re
 import isocalc
 
 expression = "H2O"

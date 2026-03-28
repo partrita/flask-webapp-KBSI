@@ -11,10 +11,13 @@ app = Flask(__name__)
 
 @app.after_request
 def add_security_headers(response):
-    response.headers['X-Content-Type-Options'] = 'nosniff'
-    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
-    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
+    response.headers["Strict-Transport-Security"] = (
+        "max-age=31536000; includeSubDomains"
+    )
     return response
+
 
 @app.route("/")
 def index():
@@ -26,11 +29,6 @@ def about():
     return render_template("about.html")
 
 
-@app.route("/tools")
-def tools():
-    return render_template("tools.html")
-
-
 @app.route("/isoc", methods=["GET", "POST"])
 def isoc():
     if request.method == "GET":
@@ -40,10 +38,16 @@ def isoc():
         # calculate result
         expression = request.form.get("expression")
         try:
-            if not expression or not re.match(r"^[A-Za-z0-9\(\)]+$", expression):
-                return "Invalid expression provided.", 400
-            pts = int(request.form.get("pts"))
-            sigma = float(request.form.get("sigma"))
+            if not expression or not re.match(
+                r"^[A-Za-z0-9\(\)\{\}\[\]\-\+]+$", expression
+            ):
+                return f"Invalid expression provided: {expression}", 400
+
+            pts_val = request.form.get("pts")
+            pts = int(pts_val) if pts_val else 500
+
+            sigma_val = request.form.get("sigma")
+            sigma = float(sigma_val) if sigma_val else 0.15
 
             formula = str(expression)
             charge = isocalc.molcharge(formula)
@@ -81,12 +85,8 @@ def m2f():
 
 # run app
 if __name__ == "__main__":
-    # Debug mode should be controlled by FLASK_DEBUG environment variable
-    # app.run(debug=True) # Old way
-    # For modern Flask, 'flask run' command handles this.
-    # The app.run() call is often not needed for development if using 'flask run'.
-    # However, to keep it runnable directly with 'python calculator.py',
-    # we can check an environment variable.
     import os
-    debug_mode = os.environ.get('FLASK_DEBUG', 'false').lower() == 'true'
-    app.run(debug=debug_mode, host='0.0.0.0')
+
+    debug_mode = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
+    port = int(os.environ.get("PORT", 8080))
+    app.run(debug=debug_mode, host="0.0.0.0", port=port)
