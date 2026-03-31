@@ -75,7 +75,12 @@ def m2f():
         # calculate result
         expression = request.form.get("expression")
         try:
-            tol = int(request.form.get("tol"))
+            if not expression or not re.match(r"^[0-9.]+$", expression):
+                return f"Invalid mass value provided: {expression}", 400
+
+            tol_val = request.form.get("tol")
+            tol = int(tol_val) if tol_val else 1
+            
             formula = float(expression)
             table = mspy.formulator(mz=formula, tolerance=tol)
             return render_template("m2f-table.html", result=table, name=formula)
